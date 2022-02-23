@@ -45,19 +45,19 @@ The script updates WordPress websites the following processes.
 
 Set the constants related to sending email.
 
-* MAIL_SMTP
+* MAIL_SMTP  
   SMTP host name (or IP address)
-* MAIL_PORT
+* MAIL_PORT  
   Port number
-* MAIL_USER
+* MAIL_USER  
   Username
-* MAIL_PASS
+* MAIL_PASS  
   Password
-* MAIL_SUBJ
+* MAIL_SUBJ  
   Subject (also possible ISO 8601 date format)
-* MAIL_TO
+* MAIL_TO  
   Receipient address
-* MAIL_FROM
+* MAIL_FROM  
   Sender address
 
 ### config.yml
