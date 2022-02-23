@@ -1,0 +1,31 @@
+#
+# Configurations for wp-auto-update.py
+#
+# [Settings] (*) = required
+# users:
+#  - name:      Identify name (*)
+#    url:       Site URL (*)
+#    host:      Hostname (FQDN, also possible IP address) (*)
+#    user:      Username (*)
+#    pass:      Password (you can omit under SSH public key authentication)
+#    port:      SSH port (*)
+#    key:       Full path to the private key file (it requires under SSH public key authentication)
+#    phrase:    Passphrase (it requires under SSH public key authentication)
+#    dir:       Path to the directory WordPress is installed (*)
+#    options:
+#    - search:  Search strings for commands
+#      replace: Replacement strings for commands
+
+users:
+ - name:   identify name (as you want)
+   url:    https://www.example.com
+   host:   foo.example.com
+   user:   username
+   pass:   password
+   port:   22
+   key:    /home/path/to/privatekey
+   phrase: foobarbaz
+   dir:    /home/path/to/wp
+   options:
+   - search:  'wp db export'
+     replace: 'wp db export --default-character-set=utf8'
