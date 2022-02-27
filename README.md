@@ -107,6 +107,8 @@ Run with configuration file name, you can choose any configuration file. If it i
 
 ## Changelog
 
+* 1.1.0 (2022-02-27)
+  * Update the method for commands execution
 * 1.0.0 (2022-02-23)
   * Opening to the public
 
