@@ -126,6 +126,7 @@ def update_wp(args):
 		command.append(user['url'])
 		proc = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
+		print(proc.stderr.decode('utf-8'), end='')
 		output.append(proc.stderr.decode('utf-8'))
 		output.append('\n')
 
