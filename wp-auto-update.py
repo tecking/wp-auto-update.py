@@ -65,19 +65,6 @@ def update_wp(args):
 		string: Execution results with WP commands.
 	"""
 
-	wp = '\
-	wp db export `wp eval "echo WP_CONTENT_DIR . DIRECTORY_SEPARATOR . DB_NAME;"`.sql && \
-	wp core update --locale=ja && \
-	wp plugin update --all && \
-	wp theme update --all && \
-	wp language core update && \
-	wp language plugin update --all && \
-	wp language theme update --all && \
-	wp cli update --yes'
-
-	wp = textwrap.dedent(wp)
-	wget = 'wget --spider -nv --timeout 60 -t 3'
-
 	try:
 		users = args['users']
 	except Exception as e:
@@ -90,6 +77,20 @@ def update_wp(args):
 
 	for user in users:
 
+		wp = '\
+		wp db export `wp eval "echo WP_CONTENT_DIR . DIRECTORY_SEPARATOR . DB_NAME;"`.sql && \
+		wp core update --locale=ja && \
+		wp plugin update --all && \
+		wp theme update --all && \
+		wp language core update && \
+		wp language plugin update --all && \
+		wp language theme update --all && \
+		wp cli update --yes'
+
+		wp = textwrap.dedent(wp)
+		wget = 'wget --spider -nv --timeout 60 -t 3'
+
+		print(f"\n### {user['name']} ###")
 		output.append(f"### {user['name']} ###\n")
 
 		if 'options' in user:
@@ -103,7 +104,7 @@ def update_wp(args):
 			client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 			client.connect(user['host'], username=user['user'], key_filename=user['key'], passphrase=user['phrase'], password=user['pass'], port=user['port'])
 
-			stdin, stdout, stderr = client.exec_command(f"cd {user['dir']}; {wp}")
+			stdin, stdout, stderr = client.exec_command(f"cd {user['dir']}; bash -l -c '{wp}'")
 			stdin.close()
 		except Exception as e:
 			message = 'Some exception occured... wp-auto-update.py was aborted.\n\n'
@@ -112,9 +113,11 @@ def update_wp(args):
 			sys.exit(1)
 
 		for line in stdout:
+			print(line, end='')
 			output.append(line)
 
 		for line in stderr:
+			print(line, end='')
 			output.append(line)
 
 		client.close()
